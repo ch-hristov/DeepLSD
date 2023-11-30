@@ -53,7 +53,7 @@ def ha_df(img, num=100, border_margin=3, min_counts=5):
     raster_lines = np.zeros_like(img)
 
     # Loop through all the homographies
-    for i in tqdm(range(num), "Computing homography", range(num)):
+    for i in tqdm(range(num), "Computing homography", len(range(num))):
         # Generate a random homography
         if i == 0:
             H = np.eye(3)
