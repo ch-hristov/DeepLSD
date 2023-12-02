@@ -64,7 +64,7 @@ homography_params = {
     'allow_artifacts': True
 }
 
-def ha_df_with_lines(img, lines, border_margin=3, min_counts=5):
+def ha_df_with_lines(img, num = 100, lines, border_margin=3, min_counts=5):
     """ Perform homography adaptation to regress line distance function maps.
     Args:
         img: a grayscale np image.
