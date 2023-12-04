@@ -1,9 +1,9 @@
 data:
     name: wireframe_ha
-    dataset_dir: Wireframe_raw
-    gt_dir: export_datasets/wireframe_ha5
-    val_size: 500
-    batch_size: 5  # 10
+    dataset_dir: d8n_raw
+    gt_dir: export_datasets/d8n_raw
+    val_size: 0
+    batch_size: 1  # 10
     resize: [333, 333]
     num_workers: 4
     photometric_augmentation:
