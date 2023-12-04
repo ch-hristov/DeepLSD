@@ -64,7 +64,9 @@ class WireframeHA(BaseDataset, torch.utils.data.Dataset):
         pass
 
     def get_dataset(self, split):
-        return _Dataset(self.conf, split)
+        data = _Dataset(self.conf, split)
+        print(len(data))
+        return data 
 
     def collate_fn(self, batch):
         """ Customized collate_fn for non-batchable data. """
@@ -96,6 +98,9 @@ class WireframeHA(BaseDataset, torch.utils.data.Dataset):
         assert split in ['train', 'val', 'test']
         batch_size = self.conf.get(split+'_batch_size')
         num_workers = self.conf.get('num_workers', batch_size)
+
+        print("Batch size {0} \ Current split : {1}".format(batch_size, split))
+        
         return DataLoader(self.get_dataset(split), batch_size=batch_size,
                           shuffle=shuffle or split == 'train',
                           pin_memory=True, num_workers=num_workers,
