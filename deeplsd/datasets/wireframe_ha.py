@@ -1,6 +1,10 @@
 """
-Wireframe dataset for line distance function prediction.
+d8n dataset for line distance function prediction. 
+
+Run: 
+python -m deeplsd.scripts.train deeplsd_d8n --conf "/Users/christosavovchristov/symbol-api/api/infrastructure/lines/DeepLSD/deeplsd/configs/train_wireframe.yaml"
 """
+
 
 from pathlib import Path
 import logging
