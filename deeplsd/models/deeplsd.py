@@ -14,7 +14,6 @@ from ..geometry.line_utils import (merge_lines, get_line_orientation,
 from ..geometry.homography_adaptation import torch_homography_adaptation
 from ..utils.tensor import preprocess_angle
 from pytlsd import lsd
-from line_refinement import line_optim
 
 
 class DeepLSD(BaseModel):
