@@ -25,7 +25,7 @@ class WireframeHA(BaseDataset, torch.utils.data.Dataset):
     default_conf = {
         'dataset_dir': 'Wireframe_raw',
         'gt_dir': 'export_datasets/wireframe_ha',
-        'val_size': 500,
+        'val_size': 5,
         'resize': [512, 512],
         'photometric_augmentation': {
             'enable': True,
@@ -128,10 +128,6 @@ class _Dataset(torch.utils.data.Dataset):
                 f'Could not find any image in folder: {conf.dataset_dir}.')
         logging.info(f'Found {len(self.images)} in image folder.')
         self.images.sort()
-        if split == 'val':
-            self.images = self.images[:conf.val_size]
-        elif split == 'train':
-            self.images = self.images[conf.val_size:]
 
         # Extract the GT paths
         self.gt = Path(DATA_PATH, conf.gt_dir, folder)
@@ -142,11 +138,18 @@ class _Dataset(torch.utils.data.Dataset):
                 f'Could not find any GT file in folder: {conf.gt_dir}.')
         logging.info(f'Found {len(self.gt)} in GT folder.')
         self.gt.sort()
+
+        # Filter the images to only use the ones with a hdf5 file
+        self.images = [img for img in self.images
+                       if img.stem in [gt.stem for gt in self.gt]]
+        logging.info(f'Filtered {len(self.images)} images with a hdf5 file.')
+
         if split == 'val':
+            self.images = self.images[:conf.val_size]
             self.gt = self.gt[:conf.val_size]
         elif split == 'train':
+            self.images = self.images[conf.val_size:]
             self.gt = self.gt[conf.val_size:]
-        assert len(self.images) == len(self.gt), "Different number of images and GT."
 
     def get_dataset(self, split):
         return self
