@@ -223,27 +223,28 @@ def ha_df_with_lines(img, lines, num = 100, border_margin=3, min_counts=5):
 
 def process_image(img_path, randomize_contrast, num_H, output_folder, lines):
     img = cv2.imread(img_path, 0)
-    
-    if randomize_contrast is not None:
-        img = randomize_contrast(img)
-    
-    # Run homography adaptation
-    df, angle, closest, bg_mask = ha_df_with_lines(img,lines= lines,num=num_H)
-
-    # Check if the hdf5 file already exists in the output folder
     out_path = os.path.splitext(os.path.basename(img_path))[0]
     out_path = os.path.join(output_folder, out_path) + '.hdf5'
     if not os.path.exists(out_path):
-        try:
-          # Save the DF in a hdf5 file
-          print("Saving image file to " + out_path)
-          with h5py.File(out_path, "w") as f:
-              f.create_dataset("df", data=df.flatten())
-              f.create_dataset("line_level", data=angle.flatten())
-              f.create_dataset("closest", data=closest.flatten())
-              f.create_dataset("bg_mask", data=bg_mask.flatten())
-        except Exception as ex:
-          print(str(ex))
+      if randomize_contrast is not None:
+          img = randomize_contrast(img)
+      
+      # Run homography adaptation
+      df, angle, closest, bg_mask = ha_df_with_lines(img,lines= lines,num=num_H)
+
+      # Check if the hdf5 file already exists in the output folder
+    
+    
+      try:
+        # Save the DF in a hdf5 file
+        print("Saving image file to " + out_path)
+        with h5py.File(out_path, "w") as f:
+            f.create_dataset("df", data=df.flatten())
+            f.create_dataset("line_level", data=angle.flatten())
+            f.create_dataset("closest", data=closest.flatten())
+            f.create_dataset("bg_mask", data=bg_mask.flatten())
+      except Exception as ex:
+        print(str(ex))
     else:
         print("The hdf5 file already exists. Skipping this image.")
 
