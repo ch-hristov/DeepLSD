@@ -56,6 +56,7 @@ def set_seed(seed):
 def do_evaluation(model, loader, device, loss_fn, metrics_fn, conf):
     model.eval()
     averages = {}
+    results = None
     for data in tqdm(loader, desc='Evaluation', ascii=True):
         data = batch_to_device(data, device, non_blocking=True)
         with torch.no_grad():
@@ -139,7 +140,7 @@ def training(conf, output_dir, args):
     logging.info(f'Model: \n{model}')
 
     loss_fn, metrics_fn = model.loss, model.metrics
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    device = 'cuda'
     model = model.to(device)
     logging.info('Using {} GPU(s)'.format(torch.cuda.device_count()))
     if torch.cuda.device_count() > 1:
@@ -195,7 +196,7 @@ def training(conf, output_dir, args):
 
             del pred, data, loss, losses
 
-            if ((it % conf.train.eval_every_iter == 0) or stop
+            if (((it) % conf.train.eval_every_iter == 0) or stop
                     or it == (len(train_loader)-1)):
                 results = do_evaluation(
                     model, val_loader, device, loss_fn, metrics_fn, conf.train)
