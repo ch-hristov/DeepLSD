@@ -25,6 +25,8 @@ from ..utils.tensor import batch_to_device
 from ..utils.experiments import (
     get_last_checkpoint, get_best_checkpoint, save_experiment)
 from ..settings import EXPER_PATH
+import wandb
+
 
 
 default_train_conf = {
@@ -77,6 +79,21 @@ def do_evaluation(model, loader, device, loss_fn, metrics_fn, conf):
 
 
 def training(conf, output_dir, args):
+
+  # start a new wandb run to track this script
+    wandb.init(
+        # set the wandb project where this run will be logged
+        project="d8n-lines",
+        
+        # track hyperparameters and run metadata
+        config={
+          "learning_rate": "default",
+          "architecture": "deeplsd",
+          "dataset": "digitizepid",
+          "epochs": 10,
+        }
+    )
+
     if args.restore:
         logging.info(f'Restoring from previous training of {args.experiment}')
         init_cp = get_last_checkpoint(args.experiment, allow_interrupted=False)
@@ -191,9 +208,11 @@ def training(conf, output_dir, args):
                 str_losses = [f'{k} {v:.8f}' for k, v in losses_.items()]
                 logging.info('[E {} | it {}] loss {{{}}}'.format(
                     epoch, it, ', '.join(str_losses)))
+                wandb.log({"loss": losses_})
+
                 for k, v in losses_.items():
                     writer.add_scalar('training/'+k, v, tot_it)
-
+            
             del pred, data, loss, losses
 
             if (((it) % conf.train.eval_every_iter == 0) or stop
