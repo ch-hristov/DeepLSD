@@ -90,6 +90,7 @@ def training(conf, output_dir, args):
           "learning_rate": "default",
           "architecture": "deeplsd",
           "dataset": "digitizepid",
+          "imgsz" : (800, 800),
           "epochs": 10,
         }
     )
