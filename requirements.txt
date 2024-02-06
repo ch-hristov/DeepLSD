@@ -20,4 +20,5 @@ flow_vis
 jupyter
 seaborn
 gdown
+py7zr
 ./third_party/pytlsd
