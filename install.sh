@@ -21,20 +21,19 @@ python3 download.py
 # Unzip images & labels
 unzip dataset.zip
 
-
 mv ./lines ./engisense-lines
-mv ./engisense-lines ./experiments
+mv ./engisense-lines ./data
 
 # Homographies dir
-mkdir ./experiments/engisense-lines/homographies
+mkdir ./data/engisense-lines/homographies
 
 # Unzip homogprahies
 unzip homographies.zip
 mv ./homographies ./train
-mv ./train ./experiments/engisense-lines/homographies
+mv ./train ./data/engisense-lines/homographies
 
 # Dataset config
-mv ./experiments/engisense-lines/images ./experiments/engisense-lines/train
+mv ./data/engisense-lines/images ./data/engisense-lines/train
 
 rm -r -f dataset.zip
 rm -r -f homographies.zip
