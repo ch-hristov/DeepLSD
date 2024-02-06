@@ -18,6 +18,12 @@ mkdir experiments
 # Download data
 python3 download.py
 
+mkdir weights
+wget https://www.polybox.ethz.ch/index.php/s/FQWGkH57UNTqlJZ/download -O weights/deeplsd_wireframe.tar
+wget https://www.polybox.ethz.ch/index.php/s/XVb30sUyuJttFys/download -O weights/deeplsd_md.tar
+
+mv ./weights/deeplsd_wireframe.tar ./experiments/deeplsd-d8n-dp/checkpoint_0_0.tar
+
 # Unzip images & labels
 unzip dataset.zip
 

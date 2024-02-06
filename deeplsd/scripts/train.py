@@ -28,7 +28,6 @@ from ..settings import EXPER_PATH
 import wandb
 
 
-
 default_train_conf = {
     'seed': '???',  # training seed
     'epochs': 1,  # number of epochs
@@ -81,19 +80,6 @@ def do_evaluation(model, loader, device, loss_fn, metrics_fn, conf):
 def training(conf, output_dir, args):
 
   # start a new wandb run to track this script
-    wandb.init(
-        # set the wandb project where this run will be logged
-        project="d8n-lines",
-        
-        # track hyperparameters and run metadata
-        config={
-          "learning_rate": "default",
-          "architecture": "deeplsd",
-          "dataset": "digitizepid",
-          "imgsz" : (800, 800),
-          "epochs": 10,
-        }
-    )
 
     if args.restore:
         logging.info(f'Restoring from previous training of {args.experiment}')
@@ -111,6 +97,20 @@ def training(conf, output_dir, args):
     else:
         # we start a new, fresh training
         conf.train = OmegaConf.merge(default_train_conf, conf.train)
+        wandb.init(
+            # set the wandb project where this run will be logged
+            project="d8n-lines",
+
+            # track hyperparameters and run metadata
+            config={
+                "learning_rate": "default",
+                "architecture": "deeplsd",
+                "dataset": "digitizepid",
+                "imgsz": (800, 800),
+                "epochs": 10,
+                "config": conf.train
+            }
+        )
         epoch = 0
         best_eval = float('inf')
         if conf.train.load_experiment:
@@ -182,7 +182,8 @@ def training(conf, output_dir, args):
         else:
             sys.exit("Unknown LR scheduler: " + conf.train.scheduler)
 
-    logging.info(f'Starting training with configuration:\n{OmegaConf.to_yaml(conf)}')
+    logging.info(
+        f'Starting training with configuration:\n{OmegaConf.to_yaml(conf)}')
     losses_ = None
 
     while epoch < conf.train.epochs and not stop:
@@ -213,7 +214,7 @@ def training(conf, output_dir, args):
 
                 for k, v in losses_.items():
                     writer.add_scalar('training/'+k, v, tot_it)
-            
+
             del pred, data, loss, losses
 
             if (((it) % conf.train.eval_every_iter == 0) or stop
@@ -233,7 +234,7 @@ def training(conf, output_dir, args):
                 break
 
             if ((conf.train.save_every_iter is not None)
-                and (tot_it % conf.train.save_every_iter == 0)):
+                    and (tot_it % conf.train.save_every_iter == 0)):
                 best_eval = save_experiment(
                     model, optimizer, scheduler, conf, losses_, results,
                     best_eval, epoch, tot_it, output_dir, stop)
