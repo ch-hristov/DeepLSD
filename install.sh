@@ -1,3 +1,6 @@
+# Specs:
+# Homographies : A single .zip file of a folder containing hdf5 files with homographies.
+
 pip install scikit-build
 pip install -r requirements.txt  # Install the requirements
 cd third_party/progressive-x/graph-cut-ransac/build; cmake ..; make -j8; cd ../../../..  # Install the C++ library Graph Cut RANSAC
@@ -12,10 +15,26 @@ pip install -e .  # Install DeepLSD
 mkdir data
 mkdir experiments
 
+# Download data
 python3 download.py
+
+# Unzip images & labels
 unzip dataset.zip
+
 
 mv ./lines ./engisense-lines
 mv ./engisense-lines ./experiments
 
+# Homographies dir
+mkdir ./experiments/engisense-lines/homographies
+
+# Unzip homogprahies
+unzip homographies.zip
+mv /homographies /train
+mv ./train ./experiments/engisense-lines/homographies
+
+# Dataset config
+mv ./experiments/engisense-lines/images ./experiments/engisense-lines/train
+
 rm -r -f dataset.zip
+rm -r -f homographies.zip
