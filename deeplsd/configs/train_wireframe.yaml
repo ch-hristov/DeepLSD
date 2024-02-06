@@ -4,7 +4,7 @@ data:
     gt_dir: engisense-homographies
     val_size: 50
     batch_size: 10 
-    resize: [333, 333]
+    resize: [500, 500]
     num_workers: 4
     photometric_augmentation:
         enable: True
