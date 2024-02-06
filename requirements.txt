@@ -19,5 +19,5 @@ h5py
 flow_vis
 jupyter
 seaborn
-
+gdown
 ./third_party/pytlsd

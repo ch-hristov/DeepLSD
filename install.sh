@@ -30,7 +30,7 @@ mkdir ./experiments/engisense-lines/homographies
 
 # Unzip homogprahies
 unzip homographies.zip
-mv /homographies /train
+mv ./homographies ./train
 mv ./train ./experiments/engisense-lines/homographies
 
 # Dataset config
@@ -38,3 +38,4 @@ mv ./experiments/engisense-lines/images ./experiments/engisense-lines/train
 
 rm -r -f dataset.zip
 rm -r -f homographies.zip
+wandb login $WANDB_LOGIN
