@@ -28,8 +28,9 @@ mv ./engisense-lines ./data
 mkdir ./data/engisense-lines/homographies
 
 # Unzip homogprahies
+
 unzip homographies.zip
-mv ./homographies ./train
+mv .data//homographies ./train
 mv ./train ./data/engisense-lines/homographies
 
 # Dataset config

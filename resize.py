@@ -13,6 +13,6 @@ def resize():
                 im = Image.open(path+item)
                 f, _ = os.path.splitext(path+item)
                 im.thumbnail(sz, Image.Resampling.LANCZOS)
-                im.save(f + '.jpg', quality=100)
+                im.save(path + f + '.jpg', quality=100)
 
 resize()
