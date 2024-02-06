@@ -8,3 +8,14 @@ pip install -e line_refinement  # Install the Python bindings to optimize lines 
 pip install -e third_party/homography_est  # Install the code for homography estimation from lines
 pip install -e third_party/pytlbd  # Install the LBD line matcher for evaluation
 pip install -e .  # Install DeepLSD
+
+mkdir data
+mkdir experiments
+
+python3 download.py
+unzip dataset.zip
+
+mv ./lines ./engisense-lines
+mv ./engisense-lines ./experiments
+
+rm -r -f dataset.zip

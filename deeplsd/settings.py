@@ -3,4 +3,4 @@
     with absolute or relative paths.
 """
 EXPER_PATH = '../experiments'
-DATA_PATH = '../lines'
+DATA_PATH = '../data'
