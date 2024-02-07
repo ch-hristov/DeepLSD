@@ -23,8 +23,6 @@ data:
             additive_shade:
                 transparency_range: [-0.8, 0.8]
                 kernel_size_range: [100, 150]
-            motion_blur:
-                max_kernel_size: 3
     warped_pair: False
     homographic_augmentation: True
     seed: 0
