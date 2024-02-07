@@ -139,10 +139,11 @@ def ha_df_with_lines(img, lines, num = 100, border_margin=3, min_counts=5):
     """
     h, w = img.shape[:2] # get the height and width of the image
     expanded_lines = []
+
     for entry in lines:
-        new_entry = [int(entry[0] * w), int(entry[1] * h), int(entry[2] * w), int(entry[3] * h)]
-        expanded_lines.append(new_entry)
-        
+        new_entry_a = [int(entry[0] * w), int(entry[1] * h) ]
+        new_entry_b = [new_entry_a[0]+ int(entry[2] * w), new_entry_a[1] + int(entry[3] * h)]
+        expanded_lines.append([new_entry_a[0],new_entry_a[1], new_entry_b[0],new_entry_b[1]])    
     np_lines = np.array(expanded_lines)
         
     size = (w, h) # define the size of the image as a tuple
@@ -253,6 +254,7 @@ def export_ha(images_list, output_folder, lines_annotation_folder, num_H=100,
     # Parse the data
     with open(images_list, 'r') as f:
         image_files = f.readlines()
+
     d = {}
     
     for dir, _, files in os.walk(lines_annotation_folder):
@@ -261,6 +263,7 @@ def export_ha(images_list, output_folder, lines_annotation_folder, num_H=100,
                 with open(os.path.join(dir, file), 'r') as annotations:
                     all_annotations= annotations.readlines()
                     entries = [x.replace('\n','').split(' ') for x in all_annotations]
+
                     if ann_base not in d:
                         d[ann_base] = []
                     for item in entries:
