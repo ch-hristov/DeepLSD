@@ -4,7 +4,7 @@ data:
     gt_dir: engisense-homographies
     val_size: 50
     batch_size: 10 
-    resize: [500, 500]
+    resize: [400, 400]
     num_workers: 4
     photometric_augmentation:
         enable: True
@@ -24,7 +24,7 @@ data:
                 transparency_range: [-0.8, 0.8]
                 kernel_size_range: [100, 150]
     warped_pair: False
-    homographic_augmentation: True
+    homographic_augmentation: False
     seed: 0
 model:
     name: deeplsd

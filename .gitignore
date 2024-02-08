@@ -13,7 +13,8 @@
 /dist/
 /experiments
 /data
-
+/images
+/wandb
 
 ### CMake ###
 CMakeCache.txt

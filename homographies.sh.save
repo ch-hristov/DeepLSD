@@ -1,0 +1,5 @@
+python -m deeplsd.scripts.homography_adaptation_df \
+"../data/engisense-lines/train.txt" \
+"../deeplsd-lines-built/export_datasets/d8n_2k_2k/homographies-100/train" \
+"../deeplsd-lines-built/labels/train" \
+--num_H 80  --n_jobs 4
