@@ -7,7 +7,7 @@ dirs = os.listdir( path )
 sz = (2000,2000)
 
 def resize():
-    for item in tqdm(dtirs):
+    for item in tqdm(dirs):
         if os.path.isfile(path+item):
             if item.endswith(".jpg"):
                 im = Image.open(path+item)
