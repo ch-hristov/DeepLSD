@@ -10,7 +10,7 @@ Demo of the lines detected by DeepLSD, its line distance field, and line angle f
 ## Installation
 First clone the repository and its submodules:
 ```
-git clone --recurse-submodules https://github.com/cvg/DeepLSD.git
+git clone --recurse-submodules https://github.com/ch-hristov/DeepLSD.git
 cd DeepLSD
 ```
 
