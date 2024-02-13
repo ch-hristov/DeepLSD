@@ -51,4 +51,3 @@ train:
     log_every_iter: 500
     keep_last_checkpoints: 3
     seed: 0
-    load_experiment: deeplsd-d8n-dp

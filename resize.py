@@ -10,6 +10,7 @@ def resize():
     for item in tqdm(dirs):
         if os.path.isfile(path+item):
             if item.endswith(".jpg"):
+                print(item)
                 im = Image.open(path+item)
                 f, _ = os.path.splitext(path+item)
                 im.thumbnail(sz, Image.Resampling.LANCZOS)
